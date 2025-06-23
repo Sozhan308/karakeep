@@ -1,0 +1,39 @@
+{
+  "name": "Karakeep",
+  "service": "web",
+  "runServices": ["web", "workers", "chrome", "meilisearch", "prep"],
+  "dockerComposeFile": [
+    "../docker/docker-compose.dev.yml",
+    "./container-compose-overrides.yml"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode-remote.remote-containers",
+        "foxundermoon.shell-format",
+        "timonwong.shellcheck",
+        "rvest.vs-code-prettier-eslint",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "forwardPorts": [3000, 9222, 7700],
+  "portsAttributes": {
+    "3000": {
+      "label": "Karakeep Web",
+      "onAutoForward": "openBrowserOnce"
+    },
+    "9222": {
+      "label": "Chrome Debugger"
+    },
+    "7700": {
+      "label": "Meilisearch"
+    }
+  },
+  "overrideCommand": true,
+  "workspaceFolder": "/app",
+  "remoteUser": "node",
+  "userEnvProbe": "loginInteractiveShell"
+}
